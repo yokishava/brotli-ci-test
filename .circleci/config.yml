@@ -39,8 +39,12 @@ jobs:
           at: .
       - run: ls -la
       - run: ls -la build
-      - run: sudo apt install brotli
-      - run: brotli -V
+      - run: sudo apt update && sudo apt upgrade -y
+      - run: vcpkg/bootstrap-vcpkg.sh
+      - run: vcpkg/vcpkg integrate install
+      - run: vcpkg install brotli
+      - run: brotli --version
+
 
 workflows:
   version: 2
