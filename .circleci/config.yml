@@ -28,18 +28,16 @@ jobs:
             - build/*
   
   brotli:
-    # docker:
-    #   - image: circleci/node:10
     docker:
-      - image: google/cloud-sdk
+      - image: circleci/node:10
     steps:
-      # - checkout
-      # - attach_workspace:
-      #     at: .
+      - checkout
+      - attach_workspace:
+          at: .
       - run: sudo apt update && sudo apt upgrade -y
       - run: sudo apt install brotli
-      # - run: bash script/package.sh
-      # - run: ls -la build
+      - run: bash script/package.sh
+      - run: ls -la build
 
 
 workflows:
