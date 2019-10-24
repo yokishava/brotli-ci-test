@@ -32,7 +32,7 @@ jobs:
   
   brotli:
     docker:
-      - image: circleci/ubuntu-server:latest
+      - image: ubuntu:18.04
     steps:
       - checkout
       - attach_workspace:
@@ -40,9 +40,7 @@ jobs:
       - run: ls -la
       - run: ls -la build
       - run: sudo apt update && sudo apt upgrade -y
-      - run: vcpkg/bootstrap-vcpkg.sh
-      - run: vcpkg/vcpkg integrate install
-      - run: vcpkg install brotli
+      - run: sudo apt install brotli
       - run: brotli --version
 
 
