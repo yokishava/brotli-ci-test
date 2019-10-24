@@ -36,7 +36,8 @@ jobs:
           at: .
       - run: sudo apt update && sudo apt upgrade -y
       - run: sudo apt install brotli
-      - run: brotli -i build/service-worker.js -o service-worker.br
+      - run: brotli -i build/service-worker.js -o build/service-worker.br
+      - run: brotli -i build/precache-manifest.*.js -o build/precache-manifest.latest.br
       - run: ls -la build
 
 
