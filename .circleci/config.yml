@@ -35,9 +35,22 @@ jobs:
       - image: ubuntu:18.04
     steps:
       - checkout
-      - attach_workspace:
-          at: .
+      # - attach_workspace:
+      #     at: .
       - run: ls -la
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      # - run: ls -la ~/repo
+      - run: ls -la
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn test
+      - run: yarn build
       - run: ls -la build
       - run: sudo apt update && sudo apt upgrade -y
       - run: sudo apt install brotli
