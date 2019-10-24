@@ -10,46 +10,49 @@ jobs:
     # working_directory: ~/repo
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
-      # - run: ls -la ~/repo
-      - run: ls -la
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn test
-      - run: yarn build
-      # - run: ls -la ~/repo/build
-      - run: ls -la build
-      - persist_to_workspace:
-          root: .
-          paths: 
-            - build/*
-  
-  brotli:
-    docker:
-      - image: ubuntu:18.04
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run: ls -la
-      - run: ls -la build
       - run: sudo apt update && sudo apt upgrade -y
       - run: sudo apt install brotli
       - run: brotli --version
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "package.json" }}
+      #       - v1-dependencies-
+      # - run: yarn install
+      # # - run: ls -la ~/repo
+      # - run: ls -la
+      # - save_cache:
+      #     paths:
+      #       - node_modules
+      #     key: v1-dependencies-{{ checksum "package.json" }}
+      # - run: yarn test
+      # - run: yarn build
+      # # - run: ls -la ~/repo/build
+      # - run: ls -la build
+      # - persist_to_workspace:
+      #     root: .
+      #     paths: 
+      #       - build/*
+  
+  # brotli:
+  #   docker:
+  #     - image: ubuntu:18.04
+  #   steps:
+  #     - checkout
+  #     - attach_workspace:
+  #         at: .
+  #     - run: ls -la
+  #     - run: ls -la build
+  #     - run: sudo apt update && sudo apt upgrade -y
+  #     - run: sudo apt install brotli
+  #     - run: brotli --version
 
 
-workflows:
-  version: 2
-  workflow:
-    jobs:
-      - build
-      - brotli:
-          requires:
-            - build
+# workflows:
+#   version: 2
+#   workflow:
+#     jobs:
+#       - build
+#       - brotli:
+#           requires:
+#             - build
 
